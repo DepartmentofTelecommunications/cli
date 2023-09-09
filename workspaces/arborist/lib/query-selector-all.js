@@ -706,6 +706,14 @@ const hasParent = (node, compareNodes) => {
         return true
       }
     }
+
+    // Try coming from the other direction since you can't
+    // always work back up from a workspace to a parent
+    for (const edge of compareNode.edgesOut.values()) {
+      if (edge?.to?.isLink && edge.to?.target === node) {
+        return true
+      }
+    }
   }
   return false
 }
